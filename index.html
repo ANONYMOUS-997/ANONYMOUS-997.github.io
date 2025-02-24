@@ -28,16 +28,28 @@
             width: 300px;
             border-radius: 15px;
             margin-top: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .container h1 {
-            text-align: center;
+        .container img:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 10px 20px rgba(255, 255, 255, 0.3);
+        }
+        .typing-container {
+            display: flex;
+            justify-content: center;
+        }
+        .typing-text {
             font-family: "Sigmar", serif;
             font-size: 200%;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid white;
         }
     </style>
 </head>
 <body>
-    <script>
+    
+<script>
         async function getUserIP() {
             try {
                 const response = await fetch('https://api64.ipify.org?format=json');
@@ -99,8 +111,41 @@
     
     </script>
     <div class="container">
-        <h1>Hajer Ben Salah</h1>
+        <div class="typing-container">
+            <h1 class="typing-text" id="typing">_</h1>
+        </div>
         <img src="https://scontent.ftun8-1.fna.fbcdn.net/v/t39.30808-6/419326799_6814445095327774_8762748740646528188_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=HViKG4ZGvYYQ7kNvgF96LP5&_nc_oc=AdgmP7gp25AjwE9XLomaZ4LvQK2UmlNGk5SO8wBAeLxHZlaZVBLi3i7Ffvt_3066bPA&_nc_zt=23&_nc_ht=scontent.ftun8-1.fna&_nc_gid=AEQdlXGBF_1WZOx6uU_c359&oh=00_AYB5cIPshTySOszrc_Z0C13vCOxCytEaxXVkxIk_iQhgjg&oe=67C2B496" alt="Image centrée">
     </div>
+    <script>
+        function typeWriterEffect() {
+            const text = "Hajer Ben Salah";
+            let index = 0;
+            const speed = 150;
+            const typingElement = document.getElementById("typing");
+            
+            function type() {
+                if (index <= text.length) {
+                    typingElement.innerText = text.substring(0, index) + "‎ ";
+                    index++;
+                    setTimeout(type, speed);
+                } else {
+                    setTimeout(erase, 1000);
+                }
+            }
+            
+            function erase() {
+                if (index >= 0) {
+                    typingElement.innerText = text.substring(0, index) + "‎ ";
+                    index--;
+                    setTimeout(erase, speed);
+                } else {
+                    setTimeout(type, 500);
+                }
+            }
+            type();
+        }
+        
+        window.onload = typeWriterEffect;
+    </script>
 </body>
 </html>
